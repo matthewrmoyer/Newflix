@@ -95,17 +95,24 @@ var data = {
 {"Title":"The State Of Marriage","Year":"2015","Rated":"N/A","Released":"18 Jun 2015","Runtime":"82 min","Genre":"Documentary, Biography, News","Director":"Jeffrey Kaufman","Writer":"Jeffrey Kaufman","Actors":"Jeffrey Amestoy, Stan-Lee Ray Baker, Nina Beck, Craig Bensen","Plot":"The untold story of how legal pioneer Mary Bonauto partnered with small town Vermont lawyers Beth Robinson and Susan Murray in a 2-decade long struggle that built the foundation for the ...","Language":"English","Country":"USA","Awards":"N/A","Poster":"http://ia.media-imdb.com/images/M/MV5BMjI5NDM4ODc1MV5BMl5BanBnXkFtZTgwMzU2Nzg1NjE@._V1_SX300.jpg","Metascore":"N/A","imdbRating":"9.4","imdbVotes":"5","imdbID":"tt4096638","Type":"movie","Response":"True"},
 {"Title": "Ku’damm 56"},
 
-
-
-
-
-
-
-
-
   ]
 
 }
+
+//creating separate arrays for sorting; doesn't have to sort each time the function runs; gets rid of sort bugs
+var imdbArray;
+imdbArray = data.movies.slice().sort(function(a, b){
+    var a1= a.imdbRating, b1= b.imdbRating;
+    if(a1== b1) return 0;
+    return a1<b1? 1: -1;
+});
+
+var metascoreArray;
+metascoreArray = data.movies.slice().sort(function(a, b){
+    var a1= a.Metascore, b1= b.Metascore;
+    if(a1== b1) return 0;
+    return a1<b1? 1: -1;
+});
 
 
 function noMatches(){
@@ -119,18 +126,12 @@ console.log(moduleMovieCount.length);
 }
 
 function imdbSort(){
-
-
     $("#movies").empty();
-  data.movies.sort(function(a, b){
-    var a1= a.imdbRating, b1= b.imdbRating;
-    if(a1== b1) return 0;
-    return a1<b1? 1: -1;
-});
   
-  for (i = 0; i < data.movies.length; i++) {
+  
+  for (i = 0; i < imdbArray.length; i++) {
   //calling template function and passing it the data
-  var html = template(data.movies[i]);
+  var html = template(imdbArray[i]);
   $("#movies").append(html);
   $(".movie-imdb-rating:empty").parents(".module-movie").hide();
 $(".movie-imdb-rating:contains('N')").closest(".module-movie").hide();
@@ -144,14 +145,10 @@ noMatches();
 
 function metascoreSort(){
     $("#movies").empty();
- data.movies.sort(function(a, b){
-    var a1= a.Metascore, b1= b.Metascore;
-    if(a1== b1) return 0;
-    return a1<b1? 1: -1;
-});
-   for (i = 0; i < data.movies.length; i++) {
+
+   for (i = 0; i < metascoreArray.length; i++) {
   //calling template function and passing it the data
-  var html = template(data.movies[i]);
+  var html = template(metascoreArray[i]);
 $("#movies").append(html);
 $(".movie-metascore-rating:contains('N')").closest(".module-movie").hide();
 $(".movie-metascore-rating:empty").parents(".module-movie").hide();
