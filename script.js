@@ -114,6 +114,7 @@ metascoreArray = data.movies.slice().sort(function(a, b){
     return a1<b1? 1: -1;
 });
 
+console.log(imdbArray);
 
 function noMatches(){
   var moduleMovieCount = document.getElementById("movies").getElementsByClassName("module-movie");
